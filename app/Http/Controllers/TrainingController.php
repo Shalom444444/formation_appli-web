@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Training;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TrainingController extends Controller
 {
@@ -11,7 +12,6 @@ class TrainingController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric',
             'start_date' => 'required|date',
@@ -19,6 +19,13 @@ class TrainingController extends Controller
         ]);
 
         $training = Training::create($request->all());
-        return response()->json($training, 201);
+
+         // Detailed log information similar to the login method
+         Log::info('New training created', ['id' => $training->id]);
+
+        return response()->json([
+            'message' => 'Training created successfully',
+            'training' => $training
+        ], 201);
     }
 }

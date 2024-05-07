@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\HTTP\Controllers\TrainingController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,21 +25,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-use App\Http\Controllers\TrainingController;
 
-// Création d'une formation
+
+// Route pour l'enregistrement d'une nouvelle training (Formation)
+
+// Assurez-vous que cette route est placée dans le groupe qui applique le middleware 'api'
 Route::post('/trainings', [TrainingController::class, 'store']);
-
-// Modification d'une formation
-Route::put('/trainings/{id}', [TrainingController::class, 'update']);
-
-// Suppression d'une formation
-Route::delete('/trainings/{id}', [TrainingController::class, 'destroy']);
-
-
-
-
-
-Route::post('/trainings', [TrainingController::class, 'store']);
-
 
